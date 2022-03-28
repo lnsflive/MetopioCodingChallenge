@@ -214,7 +214,7 @@ tr:nth-child(even){
     min-width: 600px;
 }
 .bgCard{
-    background-color: #323a45;
+    background-color: #2c3e50;
     color:white;
 }
 </style>
