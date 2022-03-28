@@ -12,7 +12,7 @@
                 {{item}} 
                 </v-tab>
                 <v-tab-item>
-                    <v-col><h1 class="pt-6 text-center">Categories</h1></v-col>
+                    <v-col><h1 class="py-4 text-center bgCard rounded dense">Categories</h1></v-col>
                     <v-expansion-panels
                       focusable
                       hover
@@ -41,7 +41,7 @@
                     </v-expansion-panels>
                 </v-tab-item>
                 <v-tab-item>
-                    <v-col><h1 class="pt-6 text-center">Topics</h1></v-col>
+                    <v-col><h1 class="py-4 text-center bgCard rounded">Topics</h1></v-col>
                     <v-card>
                         <v-card-title>
                             <v-col>
@@ -155,7 +155,9 @@ export default {
                     this.topicsItems.push(tempArr)
                 }
             }else{
-                this.topicsItems.push(element)
+                if(element['subcategories'].length == 1){
+                    this.topicsItems.push(element)
+                }
             }
         });
     })
@@ -210,5 +212,9 @@ tr:nth-child(even){
 }
 .minWidth{
     min-width: 600px;
+}
+.bgCard{
+    background-color: #323a45;
+    color:white;
 }
 </style>
