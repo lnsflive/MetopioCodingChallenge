@@ -1,6 +1,6 @@
 <template>
     <v-container>
-        <v-card class="minWidth">
+        <v-card>
             <v-tabs
             v-model="tab"
             grow
@@ -209,9 +209,6 @@ export default {
 <style>
 tr:nth-child(even){
     background-color: #dce4ef;
-}
-.minWidth{
-    min-width: 600px;
 }
 .bgCard{
     background-color: #2c3e50;
