@@ -38,7 +38,7 @@ export default {
                 const response = await axios.get('/api/v1/topics/' + this.$route.params.id);
                 this.topic = response.data
             }catch(err){
-                console.error(err)
+                this.$router.push("/error/" + err)
             }
         }
         fetchTopic();
