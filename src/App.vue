@@ -1,19 +1,13 @@
 <template>
-  <div id="app">
-    <div id="logo">
-      <img alt="Metopio logo" src="./assets/brand.png" />
-    </div>
-    <TopicsDictionary />
-  </div>
+<v-app id="app">
+    <router-view />
+</v-app>
 </template>
 
 <script>
-import TopicsDictionary from "./components/TopicsDictionary.vue";
-
 export default {
   name: "App",
   components: {
-    TopicsDictionary,
   },
 };
 </script>
@@ -33,5 +27,8 @@ export default {
   max-width: 15rem;
   height: 5rem;
   object-fit: contain;
+}
+.v-pagination__item--active{
+  background-color: purple!important;
 }
 </style>

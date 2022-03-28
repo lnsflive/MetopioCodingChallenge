@@ -13,14 +13,18 @@
       >
       to learn more about Chicago Health Atlas API
     </p>
-    <h3>Your table goes here.</h3>
+    <InteractiveTable />
   </div>
 </template>
 
 <script>
 // Please read the INSTRUCTIONS.md file
+import InteractiveTable from "./InteractiveTable.vue";
 export default {
   name: "TopicsDictionary",
+  components:{
+    InteractiveTable,
+  }
 };
 </script>
 

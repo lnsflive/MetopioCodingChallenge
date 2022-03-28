@@ -1,2 +1,0 @@
-# MetopioCodingChallenge
-Created with CodeSandbox
