@@ -26,17 +26,22 @@
     </v-container>
 </template>
 <script>
+const axios = require('axios')
 export default {
     name: "Topics",
     data: ()=>({
         topic: []
     }),
     mounted(){
-        this.axios
-          .get('/api/v1/topics/' + this.$route.params.id)
-          .then(response =>{
-              this.topic = response.data
-          })
+        const fetchTopic = async() =>{
+            try{
+                const response = await axios.get('/api/v1/topics/' + this.$route.params.id);
+                this.topic = response.data
+            }catch(err){
+                console.error(err)
+            }
+        }
+        fetchTopic();
     }
 }
 </script>

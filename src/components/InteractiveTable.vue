@@ -103,6 +103,7 @@
 </template>
 
 <script>
+const axios = require('axios')
 export default {
   name: "InteractiveTable",
   data: ()=>({
@@ -127,41 +128,47 @@ export default {
       subCategoryFilter: null
   }),
   mounted () {
-    this.axios
-      .get('/api/v1/categories/')
-      .then(response => {
-          this.categoriesItems = response.data.results;
-          this.categoriesItems.forEach(element => {
-              this.topicsFilter.push({"text": element.name, "value": element.name})
-              element['subcategories'].forEach(e => {
-                if(!this.subcategoriesItems.some(({name}) => name === e.name))
-                    this.subcategoriesItems.push(e)
-                    this.topicsFilter2.push({"text": e.name, "value": e.name})
-              });
-          });
-      })
-      .catch(error => console.log(error))
-    this.axios
-    .get('/api/v1/topics/?limit=999')
-    .then(response => {
-        let tmp = response.data.results
-        tmp.forEach(element => {
-            if(element['subcategories'].length > 1){
-                for(var i =0; i< element['subcategories'].length;i++){
-                    let tempArr = {...element}
-                    let tempSub = element.subcategories[i]
-                    tempArr.subcategories = []
-                    tempArr.subcategories.push(tempSub)
-                    this.topicsItems.push(tempArr)
+    const fetchCategories = async() => {
+        try{
+            const response = await axios.get('/api/v1/categories/');
+            this.categoriesItems = response.data.results;
+            this.categoriesItems.forEach(element => {
+                this.topicsFilter.push({"text": element.name, "value": element.name})
+                element['subcategories'].forEach(e => {
+                    if(!this.subcategoriesItems.some(({name}) => name === e.name))
+                        this.subcategoriesItems.push(e)
+                        this.topicsFilter2.push({"text": e.name, "value": e.name})
+                });
+            });
+        } catch(err){
+            console.error(err)
+        }
+    }
+    fetchCategories();
+    const fetchTopics = async() =>{
+        try{
+            const response = await axios.get('/api/v1/topics/?limit=999');
+            let tmp = response.data.results
+            tmp.forEach(element => {
+                if(element['subcategories'].length > 1){
+                    for(var i =0; i< element['subcategories'].length;i++){
+                        let tempArr = {...element}
+                        let tempSub = element.subcategories[i]
+                        tempArr.subcategories = []
+                        tempArr.subcategories.push(tempSub)
+                        this.topicsItems.push(tempArr)
+                    }
+                }else{
+                    if(element['subcategories'].length == 1){
+                        this.topicsItems.push(element)
+                    }
                 }
-            }else{
-                if(element['subcategories'].length == 1){
-                    this.topicsItems.push(element)
-                }
-            }
-        });
-    })
-    .catch(error => console.log(error))
+            });
+        }catch(err){
+            console.error(err)
+        }
+    }
+    fetchTopics();
   },
   methods:{
       checkCategory(items, type){
@@ -213,5 +220,8 @@ tr:nth-child(even){
 .bgCard{
     background-color: #2c3e50;
     color:white;
+}
+.bG{
+    background-color: #2c3e50;
 }
 </style>
